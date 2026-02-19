@@ -30,10 +30,10 @@
         <section class="lg:col-span-3 flex flex-col justify-end min-h-0 lg:border-r border-gray-200 pr-4 pb-2 order-2 lg:order-1 hidden lg:flex">
             <div class="text-[9px] uppercase tracking-[0.2em] mb-4 text-gray-400 font-bold">System_Metrics</div>
             <div class="font-mono text-[10px] text-gray-400 space-y-2">
-                 <div class="flex justify-between"><span>Uptime:</span> <span class="text-black">∞</span></div>
-                 <div class="flex justify-between"><span>Effort:</span> <span class="text-black">0.00%</span></div>
-                 <div class="flex justify-between"><span>Alpha:</span> <span class="text-black">NULL</span></div>
-                 <div class="flex justify-between"><span>State:</span> <span class="text-black">Idle</span></div>
+                 <div class="flex justify-between"><span>Uptime:</span> <span id="metric-uptime" class="text-black">00:00:00</span></div>
+                 <div class="flex justify-between"><span>Effort_Level:</span> <span id="metric-effort" class="text-black transition-colors duration-200">0.00%</span></div>
+                 <div class="flex justify-between"><span>Trades_Ignored:</span> <span id="metric-ignored" class="text-black">0</span></div>
+                 <div class="flex justify-between"><span>State:</span> <span id="metric-state" class="text-black transition-colors duration-200">Zen</span></div>
             </div>
         </section>
 
@@ -183,6 +183,61 @@
                 animate();
             }, 100);
         }
+
+        // --- LIVE SYSTEM METRICS (APATHY TRACKER) ---
+        const uptimeEl = document.getElementById('metric-uptime');
+        const effortEl = document.getElementById('metric-effort');
+        const ignoredEl = document.getElementById('metric-ignored');
+        const stateEl = document.getElementById('metric-state');
+
+        // 1. Real Uptime Tracker (Since page load)
+        const startTime = Date.now();
+        setInterval(() => {
+            const diff = Math.floor((Date.now() - startTime) / 1000);
+            const h = String(Math.floor(diff / 3600)).padStart(2, '0');
+            const m = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
+            const s = String(diff % 60).padStart(2, '0');
+            uptimeEl.innerText = `${h}:${m}:${s}`;
+        }, 1000);
+
+        // 2. Effort Tracker (Spikes when user moves mouse)
+        let effortValue = 0;
+        document.addEventListener('mousemove', () => {
+            effortValue += 0.8; // Increase effort on movement
+            if (effortValue > 100) effortValue = 100;
+        });
+
+        setInterval(() => {
+            // Cool down effort when user stops doing things
+            if (effortValue > 0) effortValue -= 0.5;
+            if (effortValue < 0) effortValue = 0;
+            
+            effortEl.innerText = `${effortValue.toFixed(2)}%`;
+            
+            // React to user's sweaty behavior
+            if (effortValue > 70) {
+                effortEl.className = 'text-red-500 font-bold transition-colors duration-200';
+                stateEl.className = 'text-red-500 font-bold transition-colors duration-200';
+                stateEl.innerText = "Distressed (Too Active)";
+            } else if (effortValue > 30) {
+                effortEl.className = 'text-orange-500 transition-colors duration-200';
+                stateEl.className = 'text-orange-500 transition-colors duration-200';
+                stateEl.innerText = "Mildly Annoyed";
+            } else {
+                effortEl.className = 'text-black transition-colors duration-200';
+                stateEl.className = 'text-black transition-colors duration-200';
+                stateEl.innerText = "Absolute Zen";
+            }
+        }, 100);
+
+        // 3. Trades Ignored (Randomly ticks up to show passive operation)
+        let ignoredCount = 0;
+        setInterval(() => {
+            if (Math.random() > 0.6) { // 40% chance to ignore a trade every second
+                ignoredCount += Math.floor(Math.random() * 3) + 1;
+                ignoredEl.innerText = ignoredCount.toLocaleString();
+            }
+        }, 1000);
     </script>
 </body>
 </html>
