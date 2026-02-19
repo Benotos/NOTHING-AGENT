@@ -85,7 +85,8 @@
     </footer>
 
     <script>
-        // --- TRUE SOLANA BLOCK HEIGHT (FINALIZED) ---
+        // --- LIVE SOLANA BLOCK HEIGHT (SOLSCAN METHOD) ---
+        let currentBlock = 0;
         const blockDisplay = document.getElementById('block-sim');
 
         async function getTrueBlockHeight() {
@@ -93,7 +94,6 @@
                 const res = await fetch('https://api.mainnet-beta.solana.com', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    // Using the exact finalized payload from the documentation
                     body: JSON.stringify({ 
                         "jsonrpc": "2.0", 
                         "id": 1, 
@@ -103,19 +103,29 @@
                 });
                 const data = await res.json();
                 if (data && data.result) {
-                    // This is the true, undisputed block height
-                    blockDisplay.innerText = data.result.toLocaleString();
+                    currentBlock = data.result; // Set the true baseline
+                    blockDisplay.innerText = currentBlock.toLocaleString();
                 }
             } catch (e) {
-                console.log('Void sync failed. Awaiting next cycle.');
+                console.log('RPC Rate limit hit. Relying on local ticker.');
             }
         }
 
         // 1. Fetch the exact real block immediately on load
         getTrueBlockHeight();
 
-        // 2. Ping the RPC every 10 seconds to get the true finalized block
-        setInterval(getTrueBlockHeight, 10000);
+        // 2. Solana produces a block roughly every 400 milliseconds.
+        // We tick the number up locally so it looks alive and blazing fast!
+        setInterval(() => {
+            if (currentBlock > 0) {
+                currentBlock += 1;
+                blockDisplay.innerText = currentBlock.toLocaleString();
+            }
+        }, 400);
+
+        // 3. Ping the RPC quietly every 2 minutes to correct any drift 
+        // (This prevents Solana from rate-limiting your website)
+        setInterval(getTrueBlockHeight, 120000);
 
         // --- FADED BLACK NEURAL CANVAS ---
         const canvas = document.getElementById('neuralCanvas');
