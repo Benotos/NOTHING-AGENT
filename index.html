@@ -214,19 +214,19 @@
             
             effortEl.innerText = `${effortValue.toFixed(2)}%`;
             
-            // React to user's sweaty behavior
+            // React to user's sweaty behavior without bearish colors
             if (effortValue > 70) {
-                effortEl.className = 'text-red-500 font-bold transition-colors duration-200';
-                stateEl.className = 'text-red-500 font-bold transition-colors duration-200';
-                stateEl.innerText = "Distressed (Too Active)";
+                effortEl.className = 'bg-black text-white px-1 font-bold transition-all duration-200';
+                stateEl.className = 'bg-black text-white px-1 font-bold transition-all duration-200';
+                stateEl.innerText = "OVERHEATING_FROM_EFFORT";
             } else if (effortValue > 30) {
-                effortEl.className = 'text-orange-500 transition-colors duration-200';
-                stateEl.className = 'text-orange-500 transition-colors duration-200';
-                stateEl.innerText = "Mildly Annoyed";
+                effortEl.className = 'text-gray-400 font-bold transition-all duration-200';
+                stateEl.className = 'text-gray-400 font-bold transition-all duration-200';
+                stateEl.innerText = "Losing_Focus";
             } else {
-                effortEl.className = 'text-black transition-colors duration-200';
-                stateEl.className = 'text-black transition-colors duration-200';
-                stateEl.innerText = "Absolute Zen";
+                effortEl.className = 'text-black transition-all duration-200';
+                stateEl.className = 'text-black transition-all duration-200';
+                stateEl.innerText = "Absolute_Zen";
             }
         }, 100);
 
