@@ -85,10 +85,43 @@
     </footer>
 
     <script>
-        // BLOCK SIM
+        // --- REAL SOLANA BLOCK HEIGHT ---
+        let currentBlock = 379424816; // Fallback starting number
+        const blockDisplay = document.getElementById('block-sim');
+
+        function updateBlockUI() {
+            blockDisplay.innerText = currentBlock.toLocaleString();
+        }
+
+        async function syncWithSolana() {
+            try {
+                const res = await fetch('https://api.mainnet-beta.solana.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getBlockHeight" })
+                });
+                const data = await res.json();
+                if (data && data.result) {
+                    currentBlock = data.result;
+                    updateBlockUI();
+                }
+            } catch (e) {
+                console.log('Void sync failed. Using local estimation.');
+            }
+        }
+
+        // 1. Fetch the exact real block immediately
+        syncWithSolana();
+
+        // 2. Solana blocks generate roughly every 400ms. 
+        // Tick up locally to look hyper-active without getting API rate-limited.
         setInterval(() => {
-            document.getElementById('block-sim').innerText = Math.floor(Math.random() * 900000000) + 500000000;
-        }, 1500);
+            currentBlock += 1;
+            updateBlockUI();
+        }, 400);
+
+        // 3. Re-sync with the real Solana blockchain every 10 seconds to stay perfectly accurate
+        setInterval(syncWithSolana, 10000);
 
         // --- FADED BLACK NEURAL CANVAS ---
         const canvas = document.getElementById('neuralCanvas');
