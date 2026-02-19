@@ -85,9 +85,37 @@
     </footer>
 
     <script>
-        // --- STATIC BLOCK HEIGHT (ZEN MODE) ---
-        // The agent is too apathetic to fetch new blocks.
-        document.getElementById('block-sim').innerText = "379,430,739";
+        // --- TRUE SOLANA BLOCK HEIGHT (FINALIZED) ---
+        const blockDisplay = document.getElementById('block-sim');
+
+        async function getTrueBlockHeight() {
+            try {
+                const res = await fetch('https://api.mainnet-beta.solana.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    // Using the exact finalized payload from the documentation
+                    body: JSON.stringify({ 
+                        "jsonrpc": "2.0", 
+                        "id": 1, 
+                        "method": "getBlockHeight", 
+                        "params": [{"commitment": "finalized"}] 
+                    })
+                });
+                const data = await res.json();
+                if (data && data.result) {
+                    // This is the true, undisputed block height
+                    blockDisplay.innerText = data.result.toLocaleString();
+                }
+            } catch (e) {
+                console.log('Void sync failed. Awaiting next cycle.');
+            }
+        }
+
+        // 1. Fetch the exact real block immediately on load
+        getTrueBlockHeight();
+
+        // 2. Ping the RPC every 10 seconds to get the true finalized block
+        setInterval(getTrueBlockHeight, 10000);
 
         // --- FADED BLACK NEURAL CANVAS ---
         const canvas = document.getElementById('neuralCanvas');
