@@ -85,43 +85,9 @@
     </footer>
 
     <script>
-        // --- REAL SOLANA BLOCK HEIGHT ---
-        let currentBlock = 379424816; // Fallback starting number
-        const blockDisplay = document.getElementById('block-sim');
-
-        function updateBlockUI() {
-            blockDisplay.innerText = currentBlock.toLocaleString();
-        }
-
-        async function syncWithSolana() {
-            try {
-                const res = await fetch('https://api.mainnet-beta.solana.com', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getBlockHeight" })
-                });
-                const data = await res.json();
-                if (data && data.result) {
-                    currentBlock = data.result;
-                    updateBlockUI();
-                }
-            } catch (e) {
-                console.log('Void sync failed. Using local estimation.');
-            }
-        }
-
-        // 1. Fetch the exact real block immediately
-        syncWithSolana();
-
-        // 2. Solana blocks generate roughly every 400ms. 
-        // Tick up locally to look hyper-active without getting API rate-limited.
-        setInterval(() => {
-            currentBlock += 1;
-            updateBlockUI();
-        }, 400);
-
-        // 3. Re-sync with the real Solana blockchain every 10 seconds to stay perfectly accurate
-        setInterval(syncWithSolana, 10000);
+        // --- STATIC BLOCK HEIGHT (ZEN MODE) ---
+        // The agent is too apathetic to fetch new blocks.
+        document.getElementById('block-sim').innerText = "379,430,739";
 
         // --- FADED BLACK NEURAL CANVAS ---
         const canvas = document.getElementById('neuralCanvas');
@@ -137,7 +103,6 @@
                 height = canvas.height = container.offsetHeight;
             }
             
-            // Initial resize and listener
             window.addEventListener('resize', resize);
             resize(); 
 
@@ -153,13 +118,11 @@
                     if(this.y < 0 || this.y > height) this.vy *= -1;
                 }
                 draw() {
-                    // FADED BLACK COLOR (rgba 0,0,0, 0.4 opacity)
                     ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
                     ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
                 }
             }
 
-            // Increased particle count slightly for visibility
             for(let i=0; i<45; i++) particles.push(new Particle());
 
             function animate() {
@@ -170,7 +133,6 @@
                         let dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
                         let dist = Math.sqrt(dx*dx + dy*dy);
                         if(dist < 120) {
-                            // FADED BLACK LINES (starts at 0.2 opacity and fades out)
                             ctx.strokeStyle = `rgba(0, 0, 0, ${0.2 - (dist/120)*0.2})`;
                             ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
                         }
@@ -179,7 +141,6 @@
                 requestAnimationFrame(animate);
             }
 
-            // Small delay to ensure layout is settled before starting animation frame loop
             setTimeout(() => {
                 resize();
                 animate();
