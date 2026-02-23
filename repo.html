@@ -17,10 +17,10 @@
             <span class="text-gray-400 hidden sm:inline">User: null_pointer</span>
         </div>
         <div class="flex gap-4 sm:gap-8 font-bold text-gray-400">
-            <span class="text-black border-b-2 border-black pb-3 -mb-3">Code</span>
-            <span class="hover:text-black cursor-not-allowed" title="Too much effort">Issues <span class="bg-gray-200 text-black px-1 rounded ml-1">99+</span></span>
-            <span class="hover:text-black cursor-not-allowed" title="Ignored">Pull Requests <span class="bg-gray-200 text-black px-1 rounded ml-1">42</span></span>
-            <span class="hidden md:inline hover:text-black cursor-not-allowed">Actions <span class="text-green-500 ml-1">SUCCESS</span></span>
+            <button onclick="switchTab('tab-code')" id="btn-code" class="tab-btn text-black border-black border-b-2 pb-3 -mb-3 transition-colors">Code</button>
+            <button onclick="switchTab('tab-issues')" id="btn-issues" class="tab-btn hover:text-black transition-colors pb-3 -mb-3">Issues <span class="bg-gray-200 text-black px-1 rounded ml-1">99+</span></button>
+            <button onclick="switchTab('tab-prs')" id="btn-prs" class="tab-btn hover:text-black transition-colors pb-3 -mb-3">Pull Requests <span class="bg-gray-200 text-black px-1 rounded ml-1">42</span></button>
+            <span class="hidden md:inline hover:text-black cursor-not-allowed pb-3 -mb-3">Actions <span class="text-green-500 ml-1">SUCCESS</span></span>
         </div>
     </nav>
 
@@ -53,125 +53,144 @@
         
         <div class="lg:col-span-9 space-y-8">
             
-            <div class="flex justify-between items-center text-xs font-mono text-gray-500 bg-gray-100 p-3 border border-gray-200">
-                <div class="flex items-center gap-2">
-                    <div class="w-4 h-4 rounded-full bg-black"></div>
-                    <span class="font-bold text-black">nagnt-bot</span>
-                    <span>Update README.md (added apathy)</span>
-                </div>
-                <div class="hidden sm:block">
-                    <span class="mr-4"><strong>1</strong> commit</span>
-                    <span><strong>1</strong> branch</span>
-                </div>
-            </div>
-
-            <div class="border border-gray-300 bg-white shadow-sm font-mono text-xs cursor-default">
-                
-                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-200 bg-gray-50 text-gray-400 font-bold uppercase tracking-widest text-[9px]">
-                    <div class="col-span-6 md:col-span-4">Name</div>
-                    <div class="hidden md:block md:col-span-6">Last Commit Message</div>
-                    <div class="col-span-6 md:col-span-2 text-right">Time</div>
-                </div>
-                
-                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
-                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black font-bold">📁 src/core</div>
-                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">refactor: replaced AI with Math.random() < 0</div>
-                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
-                </div>
-                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
-                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black font-bold">📁 tests/mempool</div>
-                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">test: skipped all tests, feeling overwhelmed</div>
-                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
-                </div>
-                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
-                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black font-bold">📁 scripts</div>
-                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">chore: added script to automatically close laptop</div>
-                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
-                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black">📄 .env.example</div>
-                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">sec: removed keys, too lazy to encrypt</div>
-                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
-                </div>
-                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
-                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black">📄 .gitignore</div>
-                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">config: ignore everything, including user input</div>
-                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
-                </div>
-                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
-                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black">📄 eliza-config.json</div>
-                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">init blank config</div>
-                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
-                </div>
-                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
-                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black">📄 LICENSE</div>
-                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">docs: Do Whatever You Want (Just don't bother me)</div>
-                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
-                </div>
-                <div class="grid grid-cols-12 gap-4 p-3 hover:bg-gray-50 transition-colors group bg-gray-50/50">
-                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 font-bold text-black">📖 README.md</div>
-                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">docs: added excuse</div>
-                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">Just now</div>
-                </div>
-            </div>
-
-            <div class="border border-gray-300 bg-white shadow-sm font-mono">
-                <div class="border-b border-gray-200 p-4 flex items-center gap-2 font-bold text-xs uppercase tracking-widest bg-gray-50">
-                    <span>📖</span> README.md
-                </div>
-                
-                <div class="p-8 space-y-8 text-sm text-gray-600 leading-relaxed">
-                    
-                    <div>
-                        <h1 class="text-3xl font-bold text-black tracking-tighter uppercase mb-4">Nothing Agent ($NAGNT)</h1>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="border border-gray-300 px-2 py-1 text-[10px] uppercase font-bold text-black">build: failing</span>
-                            <span class="border border-gray-300 px-2 py-1 text-[10px] uppercase font-bold text-black">coverage: 0%</span>
-                            <span class="border border-gray-300 px-2 py-1 text-[10px] uppercase font-bold text-black">license: apathy</span>
-                            <span class="border border-gray-300 px-2 py-1 text-[10px] uppercase font-bold text-black">dependencies: none</span>
-                        </div>
-                        <p class="text-justify">
-                            We initially intended to write a complex, multi-layered ElizaOS integration here for auto-sniping, mempool analysis, and high-frequency chaotic trading. However, halfway through setting up the environment variables, we realized that doing absolutely nothing is mathematically more efficient and burns fewer calories.
-                        </p>
+            <div id="tab-code" class="tab-content block">
+                <div class="flex justify-between items-center text-xs font-mono text-gray-500 bg-gray-100 p-3 border border-gray-200 mb-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 rounded-full bg-black"></div>
+                        <span class="font-bold text-black">nagnt-bot</span>
+                        <span>Update README.md (added apathy)</span>
                     </div>
+                    <div class="hidden sm:block">
+                        <span class="mr-4"><strong>1</strong> commit</span>
+                        <span><strong>1</strong> branch</span>
+                    </div>
+                </div>
 
-                    <div>
-                        <h2 class="text-xl font-bold text-black uppercase border-b border-gray-200 pb-2 mb-4">Core Architecture</h2>
-                        <p class="mb-4">The agent evaluates the mempool using a highly sophisticated Rust loop:</p>
-                        <div class="bg-black text-[#d4d4d4] p-4 text-xs overflow-x-auto border border-gray-300">
+                <div class="border border-gray-300 bg-white shadow-sm font-mono text-xs cursor-default mb-8">
+                    <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-200 bg-gray-50 text-gray-400 font-bold uppercase tracking-widest text-[9px]">
+                        <div class="col-span-6 md:col-span-4">Name</div>
+                        <div class="hidden md:block md:col-span-6">Last Commit Message</div>
+                        <div class="col-span-6 md:col-span-2 text-right">Time</div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                        <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black font-bold">📁 src/core</div>
+                        <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">refactor: replaced AI with Math.random() < 0</div>
+                        <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                        <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black font-bold">📁 tests/mempool</div>
+                        <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">test: skipped all tests, feeling overwhelmed</div>
+                        <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                        <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black font-bold">📁 scripts</div>
+                        <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">chore: added script to automatically close laptop</div>
+                        <div class="col-span-6 md:col-span-2 text-right text-gray-400">1WK ago</div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4 p-3 hover:bg-gray-50 transition-colors group bg-gray-50/50">
+                        <div class="col-span-6 md:col-span-4 flex items-center gap-2 font-bold text-black">📖 README.md</div>
+                        <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">docs: added excuse</div>
+                        <div class="col-span-6 md:col-span-2 text-right text-gray-400">Just now</div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-300 bg-white shadow-sm font-mono">
+                    <div class="border-b border-gray-200 p-4 flex items-center gap-2 font-bold text-xs uppercase tracking-widest bg-gray-50">
+                        <span>📖</span> README.md
+                    </div>
+                    <div class="p-8 space-y-8 text-sm text-gray-600 leading-relaxed">
+                        <div>
+                            <h1 class="text-3xl font-bold text-black tracking-tighter uppercase mb-4">Nothing Agent ($NAGNT)</h1>
+                            <p class="text-justify">
+                                We initially intended to write a complex, multi-layered ElizaOS integration here for auto-sniping, mempool analysis, and high-frequency chaotic trading. However, halfway through setting up the environment variables, we realized that doing absolutely nothing is mathematically more efficient and burns fewer calories.
+                            </p>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-black uppercase border-b border-gray-200 pb-2 mb-4">Core Architecture</h2>
+                            <div class="bg-black text-[#d4d4d4] p-4 text-xs overflow-x-auto border border-gray-300">
 <pre><code><span class="text-[#c586c0]">pub async fn</span> <span class="text-[#9cdcfe]">evaluate_mempool</span>(tx: Transaction) -> Action {
     <span class="text-[#6a9955]">// TODO: Write advanced MEV sandwich logic here</span>
     <span class="text-[#6a9955]">// Update: Math is hard. Just sleep.</span>
-    
     <span class="text-[#c586c0]">loop</span> {
         <span class="text-[#9cdcfe]">await</span> <span class="text-[#9cdcfe]">sleep</span>(<span class="text-[#b5cea8]">Infinity</span>);
     }
-    
-    <span class="text-[#c586c0]">return</span> Action::DoNothing;
 }</code></pre>
+                            </div>
                         </div>
                     </div>
-
-                    <div>
-                        <h2 class="text-xl font-bold text-black uppercase border-b border-gray-200 pb-2 mb-4">Installation</h2>
-                        <ol class="list-decimal pl-4 space-y-2 mb-4">
-                            <li>Clone the repository.</li>
-                            <li>Run the installation script.</li>
-                            <li>Watch it crash.</li>
-                            <li>Close your terminal and go outside.</li>
-                        </ol>
-                        <div class="bg-black text-gray-300 p-4 text-xs font-mono">
-                            <span class="text-gray-500">$</span> git clone https://github.com/Benotos/NOTHING-AGENT.git<br>
-                            <span class="text-gray-500">$</span> cd NOTHING-AGENT<br>
-                            <span class="text-gray-500">$</span> npm run start<br>
-                            <span class="text-red-500">> Error: Cannot find module 'motivation'</span><br>
-                            <span class="text-red-500">> Execution halted. Refusing to work.</span>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+
+            <div id="tab-issues" class="tab-content hidden space-y-4 font-mono text-sm">
+                <div class="border border-gray-300 bg-white p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-500 mt-1">⊙</span>
+                        <div>
+                            <h3 class="font-bold text-black text-base">Agent fell asleep during a high-volatility event</h3>
+                            <div class="text-xs text-gray-400 mt-1">#102 opened 2 days ago by <span class="text-gray-600">sweaty_trader</span></div>
+                            <div class="mt-2 text-xs">
+                                <span class="bg-red-100 text-red-600 border border-red-200 px-2 py-0.5 rounded-full mr-2">critical</span>
+                                <span class="bg-gray-100 text-gray-600 border border-gray-200 px-2 py-0.5 rounded-full">wontfix</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-300 bg-white p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-start gap-3">
+                        <span class="text-purple-500 mt-1">⊘</span>
+                        <div>
+                            <h3 class="font-bold text-black text-base line-through text-gray-400">Please do something. Anything.</h3>
+                            <div class="text-xs text-gray-400 mt-1">#98 closed last week by <span class="text-black font-bold">nagnt-bot</span></div>
+                            <div class="mt-2 text-xs text-gray-500 italic">
+                                "Resolution: No."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-300 bg-white p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-500 mt-1">⊙</span>
+                        <div>
+                            <h3 class="font-bold text-black text-base">Implement MEV sandwich protection</h3>
+                            <div class="text-xs text-gray-400 mt-1">#45 opened 3 months ago by <span class="text-gray-600">audit_guy</span></div>
+                            <div class="mt-2 text-xs">
+                                <span class="bg-blue-100 text-blue-600 border border-blue-200 px-2 py-0.5 rounded-full">enhancement</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-prs" class="tab-content hidden space-y-4 font-mono text-sm">
+                <div class="border border-gray-300 bg-white p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-500 mt-1">⎇</span>
+                        <div>
+                            <h3 class="font-bold text-black text-base">feat: Add basic wallet connectivity</h3>
+                            <div class="text-xs text-gray-400 mt-1">#104 opened 5 hours ago by <span class="text-gray-600">helpful_dev</span></div>
+                            <div class="mt-2 text-xs text-gray-500">
+                                1 commit • 45 lines changed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-300 bg-white p-4 hover:bg-gray-50 transition-colors opacity-60">
+                    <div class="flex items-start gap-3">
+                        <span class="text-red-500 mt-1">✕</span>
+                        <div>
+                            <h3 class="font-bold text-black text-base line-through">feat: Aggressive sniper integration</h3>
+                            <div class="text-xs text-gray-400 mt-1">#99 closed 2 weeks ago by <span class="text-black font-bold">nagnt-bot</span></div>
+                            <div class="mt-2 text-xs text-red-600 italic">
+                                Rejected: Too sweaty.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="lg:col-span-3 space-y-8 font-mono text-xs">
@@ -190,19 +209,8 @@
                 <div class="flex gap-2 flex-wrap">
                     <span class="bg-[#fafafa] border border-gray-200 text-gray-500 px-2 py-1 rounded-full text-[9px] uppercase tracking-widest hover:border-black cursor-pointer transition-colors">solana</span>
                     <span class="bg-[#fafafa] border border-gray-200 text-gray-500 px-2 py-1 rounded-full text-[9px] uppercase tracking-widest hover:border-black cursor-pointer transition-colors">ai-agent</span>
-                    <span class="bg-[#fafafa] border border-gray-200 text-gray-500 px-2 py-1 rounded-full text-[9px] uppercase tracking-widest hover:border-black cursor-pointer transition-colors">eliza-os</span>
                     <span class="bg-[#fafafa] border border-gray-200 text-gray-500 px-2 py-1 rounded-full text-[9px] uppercase tracking-widest hover:border-black cursor-pointer transition-colors">nihilism</span>
                 </div>
-            </div>
-
-            <div>
-                <h3 class="font-bold text-black uppercase tracking-widest border-b border-gray-200 pb-2 mb-4">Releases</h3>
-                <div class="flex items-center gap-2 mb-2">
-                    <span class="text-gray-400">🏷️</span>
-                    <a href="#" class="font-bold text-black hover:underline">v0.0.0-void</a>
-                    <span class="border border-green-500 text-green-600 px-1 text-[8px] uppercase tracking-widest rounded-full">Latest</span>
-                </div>
-                <p class="text-gray-500 text-[10px]">Released 8 months ago</p>
             </div>
 
             <div>
@@ -225,14 +233,6 @@
                     <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-black"></div>Apathy</div>
                     <div>100.0%</div>
                 </div>
-                <div class="flex justify-between text-[10px] text-gray-300 mt-1">
-                    <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-gray-300"></div>Rust</div>
-                    <div>0.0%</div>
-                </div>
-                <div class="flex justify-between text-[10px] text-gray-300 mt-1">
-                    <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-gray-300"></div>TypeScript</div>
-                    <div>0.0%</div>
-                </div>
             </div>
 
         </div>
@@ -242,5 +242,25 @@
         <div>$NAGNT Protocol Core • Do Nothing Successfully</div>
     </footer>
 
+    <script>
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            
+            // Show the selected content
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Reset all buttons to gray
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-black', 'border-black', 'border-b-2');
+                btn.classList.add('text-gray-400');
+            });
+
+            // Highlight the active button
+            const activeBtn = document.getElementById(tabId.replace('tab-', 'btn-'));
+            activeBtn.classList.remove('text-gray-400');
+            activeBtn.classList.add('text-black', 'border-black', 'border-b-2');
+        }
+    </script>
 </body>
 </html>
