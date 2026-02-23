@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="overflow-y-auto h-auto scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,79 +7,240 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="flex flex-col p-6 min-h-screen w-screen bg-[#fafafa]">
+<body class="flex flex-col min-h-screen w-screen bg-[#fafafa] text-black overflow-x-hidden">
     
     <div class="noise-overlay"></div>
 
-    <header class="flex justify-between items-start border-b border-gray-200 pb-4 mb-12 shrink-0 z-20 relative">
-        <div>
-            <a href="index.html" class="text-2xl font-bold tracking-[-0.05em] uppercase text-black hover:opacity-50 transition-opacity">← Nothing Agent</a>
-            <div class="text-[10px] text-gray-400 mt-1 tracking-widest uppercase">
-                Repository: <span class="text-black font-bold">nagnt-core-v1</span>
-            </div>
+    <nav class="border-b border-gray-200 bg-white/50 backdrop-blur-md sticky top-0 z-30 px-6 py-3 flex justify-between items-center text-xs font-mono uppercase tracking-widest">
+        <div class="flex items-center gap-6">
+            <a href="index.html" class="font-bold hover:opacity-50 transition-opacity">← Return</a>
+            <span class="text-gray-400 hidden sm:inline">User: null_pointer</span>
         </div>
-        <div class="text-right text-[10px] space-y-1 text-gray-400 font-mono">
-            <div>COMMITS: <span class="text-black font-bold">0</span></div>
-            <div>BRANCHES: <span class="text-black font-bold">1</span></div>
-            <div>EFFORT: <span class="text-black font-bold">NULL</span></div>
+        <div class="flex gap-4 sm:gap-8 font-bold text-gray-400">
+            <span class="text-black border-b-2 border-black pb-3 -mb-3">Code</span>
+            <span class="hover:text-black cursor-not-allowed" title="Too much effort">Issues <span class="bg-gray-200 text-black px-1 rounded ml-1">99+</span></span>
+            <span class="hover:text-black cursor-not-allowed" title="Ignored">Pull Requests <span class="bg-gray-200 text-black px-1 rounded ml-1">42</span></span>
+            <span class="hidden md:inline hover:text-black cursor-not-allowed">Actions <span class="text-red-500 ml-1">Failed</span></span>
         </div>
-    </header>
+    </nav>
 
-    <main class="max-w-4xl mx-auto w-full z-10 relative flex-grow">
-        
-        <div class="flex justify-between items-end mb-4 border-b border-gray-200 pb-2">
-            <div class="font-mono text-sm font-bold text-black">nagnt-protocol / core</div>
-            <div class="text-xs text-gray-400 font-mono">Updated: Never</div>
-        </div>
-
-        <div class="border border-gray-300 bg-white shadow-sm mb-8 font-mono text-xs cursor-default">
-            
-            <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-200 bg-gray-50 text-gray-400 font-bold uppercase tracking-widest text-[9px]">
-                <div class="col-span-6">File Name</div>
-                <div class="col-span-4">Commit Message</div>
-                <div class="col-span-2 text-right">Size</div>
+    <header class="pt-8 pb-6 px-6 md:px-12 max-w-7xl mx-auto w-full shrink-0 z-20 relative border-b border-gray-200">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-3xl font-bold tracking-[-0.05em] text-black">
+                    <span class="text-gray-400 font-normal">nagnt-protocol /</span> core
+                </h1>
+                <div class="text-[10px] text-gray-500 mt-2 tracking-widest uppercase border border-gray-200 inline-block px-2 py-1 bg-white">
+                    Public Repository • Last Commit: 8 Months Ago
+                </div>
             </div>
             
-            <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                <div class="col-span-6 flex items-center gap-2 text-black">📄 agent-logic.js</div>
-                <div class="col-span-4 text-gray-400 truncate">removed all logic. too tired.</div>
-                <div class="col-span-2 text-right text-gray-400">0 KB</div>
-            </div>
-
-            <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                <div class="col-span-6 flex items-center gap-2 text-black">📄 eliza-config.json</div>
-                <div class="col-span-4 text-gray-400 truncate">init blank config</div>
-                <div class="col-span-2 text-right text-gray-400">0 KB</div>
-            </div>
-
-            <div class="grid grid-cols-12 gap-4 p-3 hover:bg-gray-50 transition-colors">
-                <div class="col-span-6 flex items-center gap-2 font-bold text-black">📖 README.md</div>
-                <div class="col-span-4 text-gray-400 truncate">added excuse</div>
-                <div class="col-span-2 text-right text-gray-400">14 BYTES</div>
-            </div>
-        </div>
-
-        <div class="border border-gray-300 bg-white shadow-sm p-8 font-mono">
-            <h2 class="text-2xl font-bold mb-4 border-b border-gray-200 pb-2 text-black">README.md</h2>
-            
-            <div class="space-y-6 text-sm text-gray-600 leading-relaxed">
-                <p class="font-bold text-black text-lg">Nothing Agent ($NAGNT) Core</p>
-                
-                <p>We initially intended to write a complex, multi-layered ElizaOS integration here for auto-sniping, mempool analysis, and high-frequency chaotic trading.</p>
-                
-                <p>However, halfway through setting up the environment variables, we realized that doing absolutely nothing is mathematically more efficient and burns fewer calories.</p>
-                
-                <div class="pt-6 border-t border-gray-100">
-                    <p class="text-black font-bold uppercase tracking-widest text-xs mb-2">Installation Instructions:</p>
-                    <ol class="list-decimal pl-4 space-y-2">
-                        <li>Don't install this.</li>
-                        <li>Close your terminal.</li>
-                        <li>Go outside.</li>
-                    </ol>
+            <div class="flex gap-2 text-[10px] uppercase font-bold tracking-widest">
+                <div class="border border-gray-300 bg-white px-3 py-2 flex items-center gap-2">
+                    <span class="text-gray-400">Watch</span> <span>0</span>
+                </div>
+                <div class="border border-gray-300 bg-white px-3 py-2 flex items-center gap-2">
+                    <span class="text-gray-400">Fork</span> <span>0</span>
+                </div>
+                <div class="border border-black bg-black text-white px-3 py-2 flex items-center gap-2 cursor-pointer hover:bg-white hover:text-black transition-colors">
+                    <span>Star</span> <span>1</span>
                 </div>
             </div>
         </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto w-full z-10 relative flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 px-6 md:px-12 py-8">
         
+        <div class="lg:col-span-9 space-y-8">
+            
+            <div class="flex justify-between items-center text-xs font-mono text-gray-500 bg-gray-100 p-3 border border-gray-200">
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 rounded-full bg-black"></div>
+                    <span class="font-bold text-black">nagnt-bot</span>
+                    <span>Update README.md (added apathy)</span>
+                </div>
+                <div class="hidden sm:block">
+                    <span class="mr-4"><strong>1</strong> commit</span>
+                    <span><strong>1</strong> branch</span>
+                </div>
+            </div>
+
+            <div class="border border-gray-300 bg-white shadow-sm font-mono text-xs cursor-default">
+                
+                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-200 bg-gray-50 text-gray-400 font-bold uppercase tracking-widest text-[9px]">
+                    <div class="col-span-6 md:col-span-4">Name</div>
+                    <div class="hidden md:block md:col-span-6">Last Commit Message</div>
+                    <div class="col-span-6 md:col-span-2 text-right">Time</div>
+                </div>
+                
+                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black font-bold">📁 src/core</div>
+                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">refactor: replaced AI with Math.random() < 0</div>
+                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">6mo ago</div>
+                </div>
+                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black font-bold">📁 tests/mempool</div>
+                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">test: skipped all tests, feeling overwhelmed</div>
+                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">7mo ago</div>
+                </div>
+                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black font-bold">📁 scripts</div>
+                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">chore: added script to automatically close laptop</div>
+                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">8mo ago</div>
+                </div>
+
+                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black">📄 .env.example</div>
+                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">sec: removed keys, too lazy to encrypt</div>
+                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">8mo ago</div>
+                </div>
+                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black">📄 .gitignore</div>
+                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">config: ignore everything, including user input</div>
+                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">8mo ago</div>
+                </div>
+                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black">📄 eliza-config.json</div>
+                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">init blank config</div>
+                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">8mo ago</div>
+                </div>
+                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
+                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 text-black">📄 LICENSE</div>
+                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">docs: Do Whatever You Want (Just don't bother me)</div>
+                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">8mo ago</div>
+                </div>
+                <div class="grid grid-cols-12 gap-4 p-3 hover:bg-gray-50 transition-colors group bg-gray-50/50">
+                    <div class="col-span-6 md:col-span-4 flex items-center gap-2 font-bold text-black">📖 README.md</div>
+                    <div class="hidden md:block md:col-span-6 text-gray-400 truncate group-hover:text-black">docs: added excuse</div>
+                    <div class="col-span-6 md:col-span-2 text-right text-gray-400">Just now</div>
+                </div>
+            </div>
+
+            <div class="border border-gray-300 bg-white shadow-sm font-mono">
+                <div class="border-b border-gray-200 p-4 flex items-center gap-2 font-bold text-xs uppercase tracking-widest bg-gray-50">
+                    <span>📖</span> README.md
+                </div>
+                
+                <div class="p-8 space-y-8 text-sm text-gray-600 leading-relaxed">
+                    
+                    <div>
+                        <h1 class="text-3xl font-bold text-black tracking-tighter uppercase mb-4">Nothing Agent ($NAGNT)</h1>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="border border-gray-300 px-2 py-1 text-[10px] uppercase font-bold text-black">build: failing</span>
+                            <span class="border border-gray-300 px-2 py-1 text-[10px] uppercase font-bold text-black">coverage: 0%</span>
+                            <span class="border border-gray-300 px-2 py-1 text-[10px] uppercase font-bold text-black">license: apathy</span>
+                            <span class="border border-gray-300 px-2 py-1 text-[10px] uppercase font-bold text-black">dependencies: none</span>
+                        </div>
+                        <p class="text-justify">
+                            We initially intended to write a complex, multi-layered ElizaOS integration here for auto-sniping, mempool analysis, and high-frequency chaotic trading. However, halfway through setting up the environment variables, we realized that doing absolutely nothing is mathematically more efficient and burns fewer calories.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-black uppercase border-b border-gray-200 pb-2 mb-4">Core Architecture</h2>
+                        <p class="mb-4">The agent evaluates the mempool using a highly sophisticated Rust loop:</p>
+                        <div class="bg-black text-[#d4d4d4] p-4 text-xs overflow-x-auto border border-gray-300">
+<pre><code><span class="text-[#c586c0]">pub async fn</span> <span class="text-[#9cdcfe]">evaluate_mempool</span>(tx: Transaction) -> Action {
+    <span class="text-[#6a9955]">// TODO: Write advanced MEV sandwich logic here</span>
+    <span class="text-[#6a9955]">// Update: Math is hard. Just sleep.</span>
+    
+    <span class="text-[#c586c0]">loop</span> {
+        <span class="text-[#9cdcfe]">await</span> <span class="text-[#9cdcfe]">sleep</span>(<span class="text-[#b5cea8]">Infinity</span>);
+    }
+    
+    <span class="text-[#c586c0]">return</span> Action::DoNothing;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold text-black uppercase border-b border-gray-200 pb-2 mb-4">Installation</h2>
+                        <ol class="list-decimal pl-4 space-y-2 mb-4">
+                            <li>Clone the repository.</li>
+                            <li>Run the installation script.</li>
+                            <li>Watch it crash.</li>
+                            <li>Close your terminal and go outside.</li>
+                        </ol>
+                        <div class="bg-black text-gray-300 p-4 text-xs font-mono">
+                            <span class="text-gray-500">$</span> git clone https://github.com/Benotos/NOTHING-AGENT.git<br>
+                            <span class="text-gray-500">$</span> cd NOTHING-AGENT<br>
+                            <span class="text-gray-500">$</span> npm run start<br>
+                            <span class="text-red-500">> Error: Cannot find module 'motivation'</span><br>
+                            <span class="text-red-500">> Execution halted. Refusing to work.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 space-y-8 font-mono text-xs">
+            
+            <div>
+                <h3 class="font-bold text-black uppercase tracking-widest border-b border-gray-200 pb-2 mb-4">About</h3>
+                <p class="text-gray-600 mb-4 text-justify">
+                    A highly optimized Solana AI agent designed to execute exactly zero transactions, preserve gas, and aggressively ignore market volatility.
+                </p>
+                <div class="flex items-center gap-2 text-gray-500 mb-2">
+                    <span>🌐</span> <a href="index.html" class="hover:text-black underline">nothing-agent.vercel.app</a>
+                </div>
+                <div class="flex items-center gap-2 text-gray-500 mb-4">
+                    <span>📖</span> <a href="doc.html" class="hover:text-black underline">Read the Docs</a>
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                    <span class="bg-[#fafafa] border border-gray-200 text-gray-500 px-2 py-1 rounded-full text-[9px] uppercase tracking-widest hover:border-black cursor-pointer transition-colors">solana</span>
+                    <span class="bg-[#fafafa] border border-gray-200 text-gray-500 px-2 py-1 rounded-full text-[9px] uppercase tracking-widest hover:border-black cursor-pointer transition-colors">ai-agent</span>
+                    <span class="bg-[#fafafa] border border-gray-200 text-gray-500 px-2 py-1 rounded-full text-[9px] uppercase tracking-widest hover:border-black cursor-pointer transition-colors">eliza-os</span>
+                    <span class="bg-[#fafafa] border border-gray-200 text-gray-500 px-2 py-1 rounded-full text-[9px] uppercase tracking-widest hover:border-black cursor-pointer transition-colors">nihilism</span>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-black uppercase tracking-widest border-b border-gray-200 pb-2 mb-4">Releases</h3>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-gray-400">🏷️</span>
+                    <a href="#" class="font-bold text-black hover:underline">v0.0.0-void</a>
+                    <span class="border border-green-500 text-green-600 px-1 text-[8px] uppercase tracking-widest rounded-full">Latest</span>
+                </div>
+                <p class="text-gray-500 text-[10px]">Released 8 months ago</p>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-black uppercase tracking-widest border-b border-gray-200 pb-2 mb-4">Contributors <span class="bg-gray-200 text-black px-1 rounded ml-1">1</span></h3>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white font-bold text-xs">N</div>
+                    <div>
+                        <div class="font-bold text-black">nagnt-bot</div>
+                        <div class="text-gray-400 text-[10px]">1 commit</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-black uppercase tracking-widest border-b border-gray-200 pb-2 mb-4">Languages</h3>
+                <div class="w-full h-2 bg-gray-200 rounded-full flex overflow-hidden mb-2">
+                    <div class="bg-black w-full" title="Apathy 100%"></div>
+                </div>
+                <div class="flex justify-between text-[10px] text-gray-500">
+                    <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-black"></div>Apathy</div>
+                    <div>100.0%</div>
+                </div>
+                <div class="flex justify-between text-[10px] text-gray-300 mt-1">
+                    <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-gray-300"></div>Rust</div>
+                    <div>0.0%</div>
+                </div>
+                <div class="flex justify-between text-[10px] text-gray-300 mt-1">
+                    <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-gray-300"></div>TypeScript</div>
+                    <div>0.0%</div>
+                </div>
+            </div>
+
+        </div>
     </main>
+
+    <footer class="border-t border-gray-200 py-8 text-center text-[10px] font-mono uppercase tracking-widest text-gray-400 mt-12 bg-white">
+        <div>$NAGNT Protocol Core • Do Nothing Successfully</div>
+    </footer>
+
 </body>
 </html>
