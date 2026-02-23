@@ -60,7 +60,7 @@
         .nav-link.active { font-weight: bold; color: #000; border-left: 2px solid #000; padding-left: 0.5rem; }
     </style>
 </head>
-<body class="min-h-screen bg-[#fafafa] text-black overflow-y-auto">
+<body class="min-h-screen bg-[#fafafa] text-black overflow-y-auto overflow-x-hidden">
 
     <div class="noise-overlay"></div>
 
@@ -84,6 +84,7 @@
                 <a href="#governance" class="block nav-link hover:text-black transition-all">04. Governance (DAO)</a>
                 <a href="#security" class="block nav-link hover:text-black transition-all">05. Security & Audits</a>
                 <a href="#smart-contract" class="block nav-link hover:text-black transition-all">06. Smart Contract</a>
+                <a href="#repository" class="block nav-link hover:text-black transition-all">07. Protocol Repository</a>
                 
                 <div class="font-bold text-black border-b border-gray-200 pb-2 mb-4 mt-8">API Reference</div>
                 <a href="#api-status" class="block nav-link hover:text-black transition-all">GET /api/status</a>
@@ -104,7 +105,7 @@
                     Unlike traditional DeFi agents that optimize for maximum transaction volume, arbitrage exploitation, or high-frequency trading, NAGNT is engineered at the core level to resist execution. 
                 </p>
                 <p class="text-sm font-mono text-gray-600 leading-relaxed text-justify">
-                    This document outlines the architecture, the modified ElizaOS execution loop, and the REST API endpoints required to interface with the void.
+                    This document outlines the architecture, the modified ElizaOS execution loop, the REST API endpoints, and direct access to the source repository.
                 </p>
             </section>
 
@@ -264,7 +265,171 @@
                 </div>
             </section>
 
-            <section id="api-status" class="scroll-mt-24">
+            <section id="repository" class="scroll-mt-24 border-t border-gray-200 pt-12">
+                <h2 class="text-2xl font-bold uppercase mb-4 border-b-2 border-black inline-block pb-1">07. Protocol Repository</h2>
+                <p class="text-sm font-mono text-gray-600 mb-8 text-justify">
+                    Direct access to the underlying codebase, active issue tracker, and highly ignored pull requests. Interaction is futile, but viewing is permitted.
+                </p>
+
+                <div class="border border-gray-300 bg-white shadow-sm overflow-hidden text-xs">
+                    
+                    <nav class="border-b border-gray-200 bg-gray-50 px-4 pt-3 flex flex-wrap gap-4 sm:gap-6 font-bold font-mono uppercase tracking-widest text-[10px] text-gray-400">
+                        <button onclick="switchTab('tab-code')" id="btn-code" class="tab-btn text-black border-black border-b-2 pb-3 -mb-px transition-colors">Code</button>
+                        <button onclick="switchTab('tab-issues')" id="btn-issues" class="tab-btn hover:text-black transition-colors pb-3 -mb-px">Issues <span class="bg-gray-200 text-black px-1 rounded ml-1">99+</span></button>
+                        <button onclick="switchTab('tab-prs')" id="btn-prs" class="tab-btn hover:text-black transition-colors pb-3 -mb-px">Pull Requests <span class="bg-gray-200 text-black px-1 rounded ml-1">42</span></button>
+                    </nav>
+
+                    <div class="p-6 bg-[#fafafa]">
+                        
+                        <div id="tab-code" class="tab-content block font-mono">
+                            <div class="flex justify-between items-center text-gray-500 bg-white p-3 border border-gray-200 mb-4 shadow-sm">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-black"></div>
+                                    <span class="font-bold text-black">nagnt-bot</span>
+                                    <span class="truncate">Update README.md (added apathy)</span>
+                                </div>
+                                <div class="hidden sm:block text-[10px]">
+                                    <span class="mr-3"><strong>1</strong> commit</span>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 bg-white shadow-sm mb-6">
+                                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-200 bg-gray-50 text-gray-400 font-bold uppercase tracking-widest text-[9px]">
+                                    <div class="col-span-7 md:col-span-5">Name</div>
+                                    <div class="hidden md:block md:col-span-5">Message</div>
+                                    <div class="col-span-5 md:col-span-2 text-right">Time</div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                    <div class="col-span-7 md:col-span-5 flex items-center gap-2 text-black font-bold truncate">📁 src/core</div>
+                                    <div class="hidden md:block md:col-span-5 text-gray-400 truncate">replaced AI with Math.random() < 0</div>
+                                    <div class="col-span-5 md:col-span-2 text-right text-gray-400">1WK ago</div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                    <div class="col-span-7 md:col-span-5 flex items-center gap-2 text-black font-bold truncate">📁 tests/mempool</div>
+                                    <div class="hidden md:block md:col-span-5 text-gray-400 truncate">skipped all tests, overwhelmed</div>
+                                    <div class="col-span-5 md:col-span-2 text-right text-gray-400">1WK ago</div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                    <div class="col-span-7 md:col-span-5 flex items-center gap-2 text-black font-bold truncate">📁 scripts</div>
+                                    <div class="hidden md:block md:col-span-5 text-gray-400 truncate">script to auto-close laptop</div>
+                                    <div class="col-span-5 md:col-span-2 text-right text-gray-400">1WK ago</div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-3 bg-gray-50/50">
+                                    <div class="col-span-7 md:col-span-5 flex items-center gap-2 font-bold text-black truncate">📖 README.md</div>
+                                    <div class="hidden md:block md:col-span-5 text-gray-400 truncate">added excuse</div>
+                                    <div class="col-span-5 md:col-span-2 text-right text-gray-400">Just now</div>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 bg-white shadow-sm">
+                                <div class="border-b border-gray-200 p-3 font-bold text-[10px] uppercase tracking-widest bg-gray-50">
+                                    📖 README.md
+                                </div>
+                                <div class="p-6 space-y-4 text-gray-600 leading-relaxed font-sans text-sm">
+                                    <h1 class="text-2xl font-bold text-black uppercase border-b border-gray-100 pb-2">Nothing Agent ($NAGNT)</h1>
+                                    <p>We initially intended to write a complex, multi-layered ElizaOS integration here for auto-sniping, mempool analysis, and high-frequency chaotic trading. However, doing absolutely nothing is mathematically more efficient.</p>
+                                    
+                                    <h2 class="text-lg font-bold text-black mt-4">Installation</h2>
+                                    <ol class="list-decimal pl-4 text-xs font-mono space-y-1">
+                                        <li>Clone the repository.</li>
+                                        <li>Run the installation script.</li>
+                                        <li>Watch it crash.</li>
+                                        <li>Close your terminal and go outside.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-issues" class="tab-content hidden font-mono">
+                            <div class="flex justify-between items-center text-[10px] text-gray-500 bg-gray-100 p-3 border border-gray-200 border-b-0">
+                                <div><span class="font-bold text-black">11 Open</span> • <span class="text-gray-400">92 Closed</span></div>
+                            </div>
+                            <div class="border border-gray-200 bg-white shadow-sm flex flex-col">
+                                <div class="p-4 hover:bg-gray-50 border-b border-gray-100">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-green-500 mt-1">⊙</span>
+                                        <div>
+                                            <h3 class="font-bold text-black text-sm">Agent fell asleep during a high-volatility event</h3>
+                                            <div class="text-[10px] text-gray-400 mt-1">#102 opened 2 days ago by sweaty_trader</div>
+                                            <div class="mt-2 text-[10px]"><span class="bg-red-100 text-red-600 px-2 py-0.5 rounded-full">critical</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-gray-50 border-b border-gray-100">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-green-500 mt-1">⊙</span>
+                                        <div>
+                                            <h3 class="font-bold text-black text-sm">Error: Cannot read properties of undefined (reading 'motivation')</h3>
+                                            <div class="text-[10px] text-gray-400 mt-1">#101 opened 3 days ago by debug_master</div>
+                                            <div class="mt-2 text-[10px]"><span class="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full mr-2">bug</span><span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">expected behavior</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-gray-50 border-b border-gray-100">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-purple-500 mt-1">⊘</span>
+                                        <div>
+                                            <h3 class="font-bold text-gray-400 text-sm line-through">Please do something. Anything.</h3>
+                                            <div class="text-[10px] text-gray-400 mt-1">#98 closed last week by nagnt-bot</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-gray-50">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-green-500 mt-1">⊙</span>
+                                        <div>
+                                            <h3 class="font-bold text-black text-sm">Emergency withdraw function missing</h3>
+                                            <div class="text-[10px] text-gray-400 mt-1">#14 opened 6 months ago by panicking_investor</div>
+                                            <div class="mt-2 text-[10px]"><span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">wontfix</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-prs" class="tab-content hidden font-mono">
+                            <div class="flex justify-between items-center text-[10px] text-gray-500 bg-gray-100 p-3 border border-gray-200 border-b-0">
+                                <div><span class="font-bold text-black">4 Open</span> • <span class="text-gray-400">38 Closed</span></div>
+                            </div>
+                            <div class="border border-gray-200 bg-white shadow-sm flex flex-col">
+                                <div class="p-4 hover:bg-gray-50 border-b border-gray-100">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-green-500 mt-1">⎇</span>
+                                        <div>
+                                            <h3 class="font-bold text-black text-sm">feat: Add basic wallet connectivity</h3>
+                                            <div class="text-[10px] text-gray-400 mt-1">#104 opened 5 hours ago by helpful_dev</div>
+                                            <div class="mt-1 text-[10px] text-gray-500">1 commit • <span class="text-green-500">+45</span> <span class="text-red-500">-2</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-gray-50 border-b border-gray-100 opacity-60">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-red-500 mt-1">✕</span>
+                                        <div>
+                                            <h3 class="font-bold text-black text-sm line-through">feat: Aggressive sniper integration</h3>
+                                            <div class="text-[10px] text-gray-400 mt-1">#99 closed 2 weeks ago by nagnt-bot</div>
+                                            <div class="mt-1 text-[10px] text-red-600 italic">Rejected: Too sweaty. Code requires effort.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-gray-50">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-green-500 mt-1">⎇</span>
+                                        <div>
+                                            <h3 class="font-bold text-black text-sm">docs: Translate README to Chinese</h3>
+                                            <div class="text-[10px] text-gray-400 mt-1">#88 opened 1 month ago by translator_anon</div>
+                                            <div class="mt-1 text-[10px] text-gray-500">Pending Review (Ignored)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="api-status" class="scroll-mt-24 border-t border-gray-200 pt-12">
                 <h2 class="text-2xl font-bold uppercase mb-8 border-b-2 border-black inline-block pb-1">GET /api/status</h2>
                 <p class="text-sm font-mono text-gray-600 mb-6">Retrieves the current neural state and apathy index of the agent.</p>
                 
@@ -422,6 +587,21 @@
                 }
             });
         });
+
+        // 4. Embedded Repository Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-black', 'border-black', 'border-b-2');
+                btn.classList.add('text-gray-400');
+            });
+
+            const activeBtn = document.getElementById(tabId.replace('tab-', 'btn-'));
+            activeBtn.classList.remove('text-gray-400');
+            activeBtn.classList.add('text-black', 'border-black', 'border-b-2');
+        }
     </script>
 </body>
 </html>
