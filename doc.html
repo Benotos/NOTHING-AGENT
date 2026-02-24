@@ -318,9 +318,202 @@
                                 </div>
                             </div>
 
+                            <div class="flex justify-between items-center text-gray-500 bg-white p-3 border border-gray-200 mb-4 shadow-sm">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-black"></div>
+                                    <span class="font-bold text-black">nagnt-bot</span>
+                                    <span class="truncate hidden md:inline">Refactor ApathyEngine to use multithreaded stasis</span>
+                                </div>
+                                <div class="hidden sm:block text-[10px]">
+                                    <span class="mr-3"><strong>4,209</strong> commits</span>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 bg-white shadow-sm mb-6">
+                                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-200 bg-gray-50 text-gray-400 font-bold uppercase tracking-widest text-[9px]">
+                                    <div class="col-span-7 md:col-span-5">Name</div>
+                                    <div class="hidden md:block md:col-span-5">Message</div>
+                                    <div class="col-span-5 md:col-span-2 text-right">Time</div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                    <div class="col-span-7 md:col-span-5 flex items-center gap-2 text-black font-bold truncate">📁 src/core</div>
+                                    <div class="hidden md:block md:col-span-5 text-gray-400 truncate">feat: highly parallelized indifference</div>
+                                    <div class="col-span-5 md:col-span-2 text-right text-gray-400">2H ago</div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                    <div class="col-span-7 md:col-span-5 flex items-center gap-2 text-black font-bold truncate">📁 src/network</div>
+                                    <div class="hidden md:block md:col-span-5 text-gray-400 truncate">rust implementation of rpc ignorance</div>
+                                    <div class="col-span-5 md:col-span-2 text-right text-gray-400">5H ago</div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                    <div class="col-span-7 md:col-span-5 flex items-center gap-2 text-black font-bold truncate">📁 tests/mempool</div>
+                                    <div class="hidden md:block md:col-span-5 text-gray-400 truncate">skipped 142 tests, feeling overwhelmed</div>
+                                    <div class="col-span-5 md:col-span-2 text-right text-gray-400">1WK ago</div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                    <div class="col-span-7 md:col-span-5 flex items-center gap-2 text-black font-bold truncate">📁 scripts</div>
+                                    <div class="hidden md:block md:col-span-5 text-gray-400 truncate">script to auto-close laptop if volatility spikes</div>
+                                    <div class="col-span-5 md:col-span-2 text-right text-gray-400">1WK ago</div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-3 bg-gray-50/50">
+                                    <div class="col-span-7 md:col-span-5 flex items-center gap-2 font-bold text-black truncate">📖 README.md</div>
+                                    <div class="hidden md:block md:col-span-5 text-gray-400 truncate">added elaborate excuse</div>
+                                    <div class="col-span-5 md:col-span-2 text-right text-gray-400">Just now</div>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 bg-white shadow-sm mb-6">
+                                <div class="border-b border-gray-200 p-3 font-bold text-[10px] uppercase tracking-widest bg-gray-50 flex justify-between items-center">
+                                    <span>📁 src/core/eval.ts</span>
+                                    <span class="text-gray-400 normal-case tracking-normal text-[9px]">4.2 KB</span>
+                                </div>
+                                <div class="bg-[#050505] p-4 text-xs font-mono overflow-x-auto text-[#d4d4d4] max-h-96 overflow-y-auto custom-scrollbar">
+<pre><code><span class="text-[#c586c0]">import</span> { <span class="text-[#4ec9b0]">Connection</span>, <span class="text-[#4ec9b0]">PublicKey</span>, <span class="text-[#4ec9b0]">ParsedTransactionWithMeta</span> } <span class="text-[#c586c0]">from</span> <span class="text-[#ce9178]">'@solana/web3.js'</span>;
+<span class="text-[#c586c0]">import</span> { <span class="text-[#4ec9b0]">ElizaContext</span>, <span class="text-[#4ec9b0]">StateMachine</span> } <span class="text-[#c586c0]">from</span> <span class="text-[#ce9178]">'@elizaos/core'</span>;
+<span class="text-[#c586c0]">import</span> { <span class="text-[#dcdcaa]">calculateSweatIndex</span> } <span class="text-[#c586c0]">from</span> <span class="text-[#ce9178]">'../utils/math'</span>;
+
+<span class="text-[#c586c0]">interface</span> <span class="text-[#4ec9b0]">ApathyMatrix</span> {
+    <span class="text-[#9cdcfe]">baseLethargy</span>: <span class="text-[#4ec9b0]">number</span>;
+    <span class="text-[#9cdcfe]">fomoResistance</span>: <span class="text-[#4ec9b0]">number</span>;
+    <span class="text-[#9cdcfe]">sweatThreshold</span>: <span class="text-[#4ec9b0]">number</span>;
+}
+
+<span class="text-[#c586c0]">const</span> <span class="text-[#4fc1ff]">CONFIG</span>: <span class="text-[#4ec9b0]">ApathyMatrix</span> = { 
+    <span class="text-[#9cdcfe]">baseLethargy</span>: <span class="text-[#b5cea8]">0.9999</span>, 
+    <span class="text-[#9cdcfe]">fomoResistance</span>: <span class="text-[#b5cea8]">1.0</span>, 
+    <span class="text-[#9cdcfe]">sweatThreshold</span>: <span class="text-[#b5cea8]">0.0001</span> 
+};
+
+<span class="text-[#6a9955]">/**
+ * ApathyEngine: Core evaluation module for the Nothing Agent.
+ * Replaces standard ElizaOS active-trading heuristics with absolute indifference.
+ */</span>
+<span class="text-[#c586c0]">export class</span> <span class="text-[#4ec9b0]">ApathyEngine</span> {
+    <span class="text-[#c586c0]">private</span> <span class="text-[#9cdcfe]">connection</span>: <span class="text-[#4ec9b0]">Connection</span>;
+    
+    <span class="text-[#c586c0]">constructor</span>(<span class="text-[#9cdcfe]">rpcUrl</span>: <span class="text-[#4ec9b0]">string</span>) {
+        <span class="text-[#c586c0]">this</span>.<span class="text-[#9cdcfe]">connection</span> = <span class="text-[#c586c0]">new</span> <span class="text-[#4ec9b0]">Connection</span>(<span class="text-[#9cdcfe]">rpcUrl</span>, <span class="text-[#ce9178]">'confirmed'</span>);
+    }
+
+    <span class="text-[#c586c0]">public async</span> <span class="text-[#dcdcaa]">evaluateOpportunity</span>(<span class="text-[#9cdcfe]">tx</span>: <span class="text-[#4ec9b0]">ParsedTransactionWithMeta</span>): <span class="text-[#4ec9b0]">Promise</span>&lt;<span class="text-[#4ec9b0]">number</span>&gt; {
+        <span class="text-[#c586c0]">const</span> <span class="text-[#4fc1ff]">computeUnits</span> = <span class="text-[#9cdcfe]">tx</span>.<span class="text-[#9cdcfe]">meta</span>?.<span class="text-[#9cdcfe]">computeUnitsConsumed</span> || <span class="text-[#b5cea8]">0</span>;
+        <span class="text-[#c586c0]">const</span> <span class="text-[#4fc1ff]">fee</span> = <span class="text-[#9cdcfe]">tx</span>.<span class="text-[#9cdcfe]">meta</span>?.<span class="text-[#9cdcfe]">fee</span> || <span class="text-[#b5cea8]">0</span>;
+        
+        <span class="text-[#6a9955]">// Advanced algorithmic heuristic for "Is this too much work?"</span>
+        <span class="text-[#c586c0]">const</span> <span class="text-[#4fc1ff]">sweatIndex</span> = <span class="text-[#dcdcaa]">calculateSweatIndex</span>(<span class="text-[#4fc1ff]">computeUnits</span>, <span class="text-[#4fc1ff]">fee</span>);
+        
+        <span class="text-[#c586c0]">if</span> (<span class="text-[#4fc1ff]">sweatIndex</span> &gt; <span class="text-[#4fc1ff]">CONFIG</span>.<span class="text-[#9cdcfe]">sweatThreshold</span>) {
+            <span class="text-[#4ec9b0]">console</span>.<span class="text-[#dcdcaa]">log</span>(<span class="text-[#ce9178]">"[EVAL] Sweaty transaction detected. Dropping."</span>);
+            <span class="text-[#c586c0]">return</span> <span class="text-[#b5cea8]">0</span>; <span class="text-[#6a9955]">// Do nothing</span>
+        }
+
+        <span class="text-[#6a9955]">// The opportunity is mathematically perfect. </span>
+        <span class="text-[#6a9955]">// However, executing it requires signing a transaction, which is exhausting.</span>
+        <span class="text-[#c586c0]">return</span> <span class="text-[#b5cea8]">0</span>; <span class="text-[#6a9955]">// Still do nothing.</span>
+    }
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 bg-white shadow-sm mb-6">
+                                <div class="border-b border-gray-200 p-3 font-bold text-[10px] uppercase tracking-widest bg-gray-50 flex justify-between items-center">
+                                    <span>📁 src/network/rpc_stream.rs</span>
+                                    <span class="text-gray-400 normal-case tracking-normal text-[9px]">2.1 KB</span>
+                                </div>
+                                <div class="bg-[#050505] p-4 text-xs font-mono overflow-x-auto text-[#d4d4d4] max-h-96 overflow-y-auto custom-scrollbar">
+<pre><code><span class="text-[#c586c0]">use</span> <span class="text-[#4ec9b0]">solana_client</span>::<span class="text-[#4ec9b0]">rpc_client</span>::<span class="text-[#4ec9b0]">RpcClient</span>;
+<span class="text-[#c586c0]">use</span> <span class="text-[#4ec9b0]">solana_sdk</span>::<span class="text-[#4ec9b0]">commitment_config</span>::<span class="text-[#4ec9b0]">CommitmentConfig</span>;
+<span class="text-[#c586c0]">use</span> <span class="text-[#4ec9b0]">std</span>::<span class="text-[#4ec9b0]">thread</span>::<span class="text-[#dcdcaa]">sleep</span>;
+<span class="text-[#c586c0]">use</span> <span class="text-[#4ec9b0]">std</span>::<span class="text-[#4ec9b0]">time</span>::<span class="text-[#4ec9b0]">Duration</span>;
+
+<span class="text-[#6a9955]">/// High-performance Rust pipeline for monitoring the Solana mempool.
+/// Optimized for maximum CPU efficiency by aggressively ignoring all blocks.</span>
+<span class="text-[#c586c0]">pub struct</span> <span class="text-[#4ec9b0]">NullStreamer</span> {
+    <span class="text-[#9cdcfe]">rpc_url</span>: <span class="text-[#4ec9b0]">String</span>,
+}
+
+<span class="text-[#c586c0]">impl</span> <span class="text-[#4ec9b0]">NullStreamer</span> {
+    <span class="text-[#c586c0]">pub fn</span> <span class="text-[#dcdcaa]">new</span>(<span class="text-[#9cdcfe]">url</span>: <span class="text-[#c586c0]">&</span><span class="text-[#4ec9b0]">str</span>) <span class="text-[#c586c0]">-></span> <span class="text-[#4ec9b0]">Self</span> {
+        <span class="text-[#4ec9b0]">NullStreamer</span> { <span class="text-[#9cdcfe]">rpc_url</span>: <span class="text-[#9cdcfe]">url</span>.<span class="text-[#dcdcaa]">to_string</span>() }
+    }
+
+    <span class="text-[#c586c0]">pub fn</span> <span class="text-[#dcdcaa]">listen_and_ignore</span>(<span class="text-[#c586c0]">&self</span>) {
+        <span class="text-[#c586c0]">let</span> <span class="text-[#9cdcfe]">client</span> = <span class="text-[#4ec9b0]">RpcClient</span>::<span class="text-[#dcdcaa]">new_with_commitment</span>(<span class="text-[#c586c0]">&self</span>.<span class="text-[#9cdcfe]">rpc_url</span>, <span class="text-[#4ec9b0]">CommitmentConfig</span>::<span class="text-[#dcdcaa]">confirmed</span>());
+        
+        <span class="text-[#c586c0]">loop</span> {
+            <span class="text-[#6a9955]">// Fetch latest slot from mainnet</span>
+            <span class="text-[#c586c0]">match</span> <span class="text-[#9cdcfe]">client</span>.<span class="text-[#dcdcaa]">get_slot</span>() {
+                <span class="text-[#4ec9b0]">Ok</span>(<span class="text-[#9cdcfe]">slot</span>) <span class="text-[#c586c0]">=></span> <span class="text-[#dcdcaa]">println!</span>(<span class="text-[#ce9178]">"Observed slot {}. Who cares."</span>, <span class="text-[#9cdcfe]">slot</span>),
+                <span class="text-[#4ec9b0]">Err</span>(<span class="text-[#9cdcfe]">_</span>) <span class="text-[#c586c0]">=></span> <span class="text-[#dcdcaa]">println!</span>(<span class="text-[#ce9178]">"RPC dropped. Perfect excuse to nap."</span>),
+            }
+            
+            <span class="text-[#6a9955]">// Sleep for 24 hours to prevent network congestion</span>
+            <span class="text-[#dcdcaa]">sleep</span>(<span class="text-[#4ec9b0]">Duration</span>::<span class="text-[#dcdcaa]">from_secs</span>(<span class="text-[#b5cea8]">86400</span>));
+        }
+    }
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 bg-white shadow-sm mb-6">
+                                <div class="border-b border-gray-200 p-3 font-bold text-[10px] uppercase tracking-widest bg-gray-50 flex justify-between items-center">
+                                    <span>📁 tests/mempool/monitor.test.ts</span>
+                                    <span class="text-gray-400 normal-case tracking-normal text-[9px]">1.8 KB</span>
+                                </div>
+                                <div class="bg-[#050505] p-4 text-xs font-mono overflow-x-auto text-[#d4d4d4] max-h-96 overflow-y-auto custom-scrollbar">
+<pre><code><span class="text-[#c586c0]">import</span> { <span class="text-[#9cdcfe]">describe</span>, <span class="text-[#9cdcfe]">test</span>, <span class="text-[#9cdcfe]">expect</span>, <span class="text-[#9cdcfe]">beforeAll</span> } <span class="text-[#c586c0]">from</span> <span class="text-[#ce9178]">'vitest'</span>;
+<span class="text-[#c586c0]">import</span> { <span class="text-[#4ec9b0]">ApathyEngine</span> } <span class="text-[#c586c0]">from</span> <span class="text-[#ce9178]">'../../src/core/eval'</span>;
+
+<span class="text-[#dcdcaa]">describe</span>(<span class="text-[#ce9178]">'ApathyEngine Core Logic'</span>, () <span class="text-[#c586c0]">=&gt;</span> {
+    <span class="text-[#c586c0]">let</span> <span class="text-[#9cdcfe]">engine</span>: <span class="text-[#4ec9b0]">ApathyEngine</span>;
+
+    <span class="text-[#dcdcaa]">beforeAll</span>(() <span class="text-[#c586c0]">=&gt;</span> {
+        <span class="text-[#9cdcfe]">engine</span> = <span class="text-[#c586c0]">new</span> <span class="text-[#4ec9b0]">ApathyEngine</span>(<span class="text-[#ce9178]">'https://api.mainnet-beta.solana.com'</span>);
+    });
+
+    <span class="text-[#dcdcaa]">test</span>.<span class="text-[#dcdcaa]">skip</span>(<span class="text-[#ce9178]">'should successfully connect to RPC and establish neural link'</span>, <span class="text-[#c586c0]">async</span> () <span class="text-[#c586c0]">=&gt;</span> {
+        <span class="text-[#6a9955]">// Skipping because RPCs are rate limited and handling errors is tedious.</span>
+    });
+
+    <span class="text-[#dcdcaa]">test</span>.<span class="text-[#dcdcaa]">skip</span>(<span class="text-[#ce9178]">'should detect 1000x arbitrage opportunity and ignore it'</span>, <span class="text-[#c586c0]">async</span> () <span class="text-[#c586c0]">=&gt;</span> {
+        <span class="text-[#c586c0]">const</span> <span class="text-[#4fc1ff]">mockTx</span> = { <span class="text-[#6a9955]">/* ... 400 lines of mock payload ... */</span> };
+        <span class="text-[#c586c0]">const</span> <span class="text-[#4fc1ff]">result</span> = <span class="text-[#c586c0]">await</span> <span class="text-[#9cdcfe]">engine</span>.<span class="text-[#dcdcaa]">evaluateOpportunity</span>(<span class="text-[#4fc1ff]">mockTx</span>);
+        <span class="text-[#dcdcaa]">expect</span>(<span class="text-[#4fc1ff]">result</span>).<span class="text-[#dcdcaa]">toBe</span>(<span class="text-[#b5cea8]">0</span>);
+    });
+
+    <span class="text-[#dcdcaa]">test</span>(<span class="text-[#ce9178]">'should pass if doing absolutely nothing'</span>, () <span class="text-[#c586c0]">=&gt;</span> {
+        <span class="text-[#dcdcaa]">expect</span>(<span class="text-[#c586c0]">true</span>).<span class="text-[#dcdcaa]">toBe</span>(<span class="text-[#c586c0]">true</span>);
+    });
+});</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 bg-white shadow-sm mb-6">
+                                <div class="border-b border-gray-200 p-3 font-bold text-[10px] uppercase tracking-widest bg-gray-50 flex justify-between items-center">
+                                    <span>📁 scripts/auto_close.sh</span>
+                                    <span class="text-gray-400 normal-case tracking-normal text-[9px]">409 Bytes</span>
+                                </div>
+                                <div class="bg-[#050505] p-4 text-xs font-mono overflow-x-auto text-[#d4d4d4] max-h-96 overflow-y-auto custom-scrollbar">
+<pre><code><span class="text-[#6a9955]">#!/bin/bash</span>
+<span class="text-[#6a9955]"># WARNING: Executing this script will aggressively preserve your Zen state.</span>
+
+<span class="text-[#4fc1ff]">CPU_USAGE</span>=$(<span class="text-[#dcdcaa]">top</span> -bn1 | <span class="text-[#dcdcaa]">grep</span> <span class="text-[#ce9178]">"Cpu(s)"</span> | <span class="text-[#dcdcaa]">sed</span> <span class="text-[#ce9178]">"s/.*, *\([0-9.]*\)%* id.*/\1/"</span> | <span class="text-[#dcdcaa]">awk</span> <span class="text-[#ce9178]">'{print 100 - $1}'</span>)
+
+<span class="text-[#c586c0]">if</span> (( $(<span class="text-[#dcdcaa]">echo</span> <span class="text-[#ce9178]">"<span class="text-[#4fc1ff]">$CPU_USAGE</span> > 5.0"</span> | <span class="text-[#dcdcaa]">bc</span> -l) )); <span class="text-[#c586c0]">then</span>
+    <span class="text-[#dcdcaa]">echo</span> <span class="text-[#ce9178]">"[FATAL] System is working too hard. Current CPU: <span class="text-[#4fc1ff]">$CPU_USAGE</span>%"</span>
+    <span class="text-[#dcdcaa]">echo</span> <span class="text-[#ce9178]">"Killing all node processes and shutting down."</span>
+    <span class="text-[#dcdcaa]">killall</span> -9 node
+    <span class="text-[#dcdcaa]">sudo</span> shutdown -h now
+<span class="text-[#c586c0]">else</span>
+    <span class="text-[#dcdcaa]">echo</span> <span class="text-[#ce9178]">"System idle. Good."</span>
+<span class="text-[#c586c0]">fi</span></code></pre>
+                                </div>
+                            </div>
+
                             <div class="border border-gray-200 bg-white shadow-sm">
-                                <div class="border-b border-gray-200 p-3 font-bold text-[10px] uppercase tracking-widest bg-gray-50">
-                                    📖 README.md
+                                <div class="border-b border-gray-200 p-3 font-bold text-[10px] uppercase tracking-widest bg-gray-50 flex justify-between items-center">
+                                    <span>📖 README.md</span>
+                                    <span class="text-gray-400 normal-case tracking-normal text-[9px]">402 Bytes</span>
                                 </div>
                                 <div class="p-6 space-y-4 text-gray-600 leading-relaxed font-sans text-sm">
                                     <h1 class="text-2xl font-bold text-black uppercase border-b border-gray-100 pb-2">Nothing Agent ($NAGNT)</h1>
