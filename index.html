@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>$NAGNT | Entry</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Minimalist Scrollbar for the live feed */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex flex-col p-6 h-screen w-screen bg-[#fafafa] overflow-hidden">
@@ -41,15 +46,31 @@
             <div id="canvas-container" class="absolute inset-0 z-0 w-full h-full">
                 <canvas id="neuralCanvas" class="w-full h-full block"></canvas>
             </div>
-            <div class="z-10 text-center pointer-events-none mix-blend-multiply select-none">
-                <h1 class="text-6xl md:text-9xl font-bold tracking-tighter text-black">
+            
+            <div class="z-10 text-center mix-blend-multiply w-full max-w-lg px-4 flex flex-col items-center">
+                <h1 class="text-6xl md:text-9xl font-bold tracking-tighter text-black select-none pointer-events-none">
                     NOTHING.
                 </h1>
-                <div class="mt-6 inline-block">
-                    <p class="text-[10px] md:text-xs text-black font-mono uppercase tracking-[0.15em] bg-[#fafafa]/80 backdrop-blur-sm border border-gray-200 px-4 py-2">
-                        The first AI agent optimized for absolute zero effort.
-                    </p>
+                
+                <p class="text-[10px] md:text-xs text-black font-mono uppercase tracking-[0.15em] bg-[#fafafa]/80 backdrop-blur-sm border border-gray-200 px-4 py-2 inline-block mt-4 mb-6">
+                    The first AI agent optimized for absolute zero effort.
+                </p>
+                
+                <div class="border border-gray-200 bg-white/90 backdrop-blur-md p-4 w-full text-left shadow-sm h-36 flex flex-col">
+                    <div class="flex justify-between items-end border-b border-gray-100 pb-2 mb-2 shrink-0">
+                        <span class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Live_Utility_Stream</span>
+                        <div class="flex gap-1 items-center">
+                            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="live-utility-feed" class="text-[9px] md:text-[10px] text-black font-mono leading-relaxed space-y-1.5 overflow-y-auto flex-grow scrollbar-hide">
+                        <div class="text-gray-400">> Booting apathy engine...</div>
+                        <div class="text-gray-400">> Monitoring Solana mempool...</div>
+                    </div>
                 </div>
+
             </div>
         </section>
 
@@ -80,10 +101,15 @@
                         <span class="group-hover:translate-x-1 transition-transform">→</span>
                     </span>
                 </a>
-                
                 <a href="https://x.com/your_handle_here" target="_blank" class="block border border-black p-3 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer group">
                     <span class="text-[10px] uppercase tracking-widest font-bold flex justify-between items-center">
                         <span>> 05_X_Network</span>
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                </a>
+                <a href="https://github.com/your-fake-repo/nagnt-core-agent" target="_blank" class="block border border-black p-3 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer group border-t-0">
+                    <span class="text-[10px] uppercase tracking-widest font-bold flex justify-between items-center">
+                        <span>> 06_GitHub_Repo</span>
                         <span class="group-hover:translate-x-1 transition-transform">→</span>
                     </span>
                 </a>
@@ -98,8 +124,7 @@
     </footer>
 
     <script>
-        // --- LIVE SOLANA BLOCK HEIGHT (BULLETPROOF METHOD) ---
-        // Realistic fallback number in case the free RPC blocks us instantly
+        // --- LIVE SOLANA BLOCK HEIGHT ---
         let currentBlock = 379435293; 
         const blockDisplay = document.getElementById('block-sim');
 
@@ -109,34 +134,18 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        "jsonrpc": "2.0", 
-                        "id": 1, 
-                        "method": "getBlockHeight", 
-                        "params": [{"commitment": "finalized"}] 
+                        "jsonrpc": "2.0", "id": 1, "method": "getBlockHeight", "params": [{"commitment": "finalized"}] 
                     })
                 });
                 const data = await res.json();
-                if (data && data.result) {
-                    currentBlock = data.result; // Update with the true live number if successful
-                }
+                if (data && data.result) currentBlock = data.result;
             } catch (e) {
-                console.log('RPC Rate limit hit. Using fallback baseline.');
+                console.log('RPC Rate limit hit.');
             }
-            // Immediately remove "LOADING..." and show the number
             blockDisplay.innerText = currentBlock.toLocaleString();
         }
-
-        // 1. Try to fetch the exact real block immediately
         getTrueBlockHeight();
-
-        // 2. Solana blocks generate roughly every 400ms. 
-        // Tick up locally so it looks hyper-active even if the API failed!
-        setInterval(() => {
-            currentBlock += 1;
-            blockDisplay.innerText = currentBlock.toLocaleString();
-        }, 400);
-
-        // 3. Try to re-sync every 2 minutes
+        setInterval(() => { currentBlock += 1; blockDisplay.innerText = currentBlock.toLocaleString(); }, 400);
         setInterval(getTrueBlockHeight, 120000);
 
         // --- FADED BLACK NEURAL CANVAS ---
@@ -152,7 +161,6 @@
                 width = canvas.width = container.offsetWidth;
                 height = canvas.height = container.offsetHeight;
             }
-            
             window.addEventListener('resize', resize);
             resize(); 
 
@@ -190,20 +198,60 @@
                 }
                 requestAnimationFrame(animate);
             }
-
-            setTimeout(() => {
-                resize();
-                animate();
-            }, 100);
+            setTimeout(() => { resize(); animate(); }, 100);
         }
 
-        // --- LIVE SYSTEM METRICS (APATHY TRACKER) ---
+        // --- LIVE UTILITY FEED (SNIPER & REWARDS SIMULATION) ---
+        const utilityFeed = document.getElementById('live-utility-feed');
+        const tokens = ['$FARTCOIN', '$PUMP', '$TrenchWhale', '$HERO', '$WIF', '$BONK', 'Unknown_CA'];
+        const idleActions = [
+            "Analyzing mempool volume... requires too much effort. Ignored.",
+            "Filtering pump.fun noise.",
+            "Calculating lazy alpha... 0.00000. Perfect.",
+            "Watching devs dump. Doing absolutely nothing.",
+            "Maintaining Zen state. Gas is too high."
+        ];
+
+        function pushUtilityLog() {
+            const div = document.createElement('div');
+            const isSnipe = Math.random() > 0.8; // 20% chance to do actual "work"
+            let token = tokens[Math.floor(Math.random() * tokens.length)];
+            let amt = (Math.random() * 0.015).toFixed(4);
+
+            if (isSnipe) {
+                // Determine if it's a snipe log or a reward log
+                if (Math.random() > 0.5) {
+                    div.innerHTML = `<span class="text-green-600 font-bold">[SNIPE]</span> Zero-effort dip detected on <span class="font-bold">${token}</span>. Auto-sniped. Gain: +${amt} SOL.`;
+                } else {
+                    div.innerHTML = `<span class="text-black font-bold">[REWARD]</span> Embracing chaos. Micro-gain of ${amt} SOL routed to $NAGNT stakers.`;
+                }
+                div.className = "text-black bg-gray-50 border border-gray-100 p-1 mt-1 mb-1";
+            } else {
+                div.innerHTML = `<span class="text-gray-400">> [MONITOR] ${idleActions[Math.floor(Math.random() * idleActions.length)]}</span>`;
+            }
+
+            utilityFeed.appendChild(div);
+            
+            // Keep the log clean (remove oldest items)
+            if(utilityFeed.children.length > 5) {
+                utilityFeed.removeChild(utilityFeed.firstChild);
+            }
+            // Auto-scroll to bottom
+            utilityFeed.scrollTop = utilityFeed.scrollHeight;
+
+            // Randomize update times (1.5 to 4 seconds)
+            setTimeout(pushUtilityLog, Math.random() * 2500 + 1500);
+        }
+        
+        // Start the utility feed shortly after load
+        setTimeout(pushUtilityLog, 2000);
+
+        // --- SYSTEM METRICS ---
         const uptimeEl = document.getElementById('metric-uptime');
         const effortEl = document.getElementById('metric-effort');
         const ignoredEl = document.getElementById('metric-ignored');
         const stateEl = document.getElementById('metric-state');
 
-        // 1. Real Uptime Tracker (Since page load)
         const startTime = Date.now();
         setInterval(() => {
             const diff = Math.floor((Date.now() - startTime) / 1000);
@@ -213,25 +261,21 @@
             uptimeEl.innerText = `${h}:${m}:${s}`;
         }, 1000);
 
-        // 2. Effort Tracker (Spikes when user moves mouse)
         let effortValue = 0;
         document.addEventListener('mousemove', () => {
-            effortValue += 0.8; // Increase effort on movement
+            effortValue += 0.8; 
             if (effortValue > 100) effortValue = 100;
         });
 
         setInterval(() => {
-            // Cool down effort when user stops doing things
             if (effortValue > 0) effortValue -= 0.5;
             if (effortValue < 0) effortValue = 0;
-            
             effortEl.innerText = `${effortValue.toFixed(2)}%`;
             
-            // React to user's sweaty behavior without bearish colors
             if (effortValue > 70) {
                 effortEl.className = 'bg-black text-white px-1 font-bold transition-all duration-200';
                 stateEl.className = 'bg-black text-white px-1 font-bold transition-all duration-200';
-                stateEl.innerText = "OVERHEATING_FROM_EFFORT";
+                stateEl.innerText = "OVERHEATING";
             } else if (effortValue > 30) {
                 effortEl.className = 'text-gray-400 font-bold transition-all duration-200';
                 stateEl.className = 'text-gray-400 font-bold transition-all duration-200';
@@ -243,10 +287,9 @@
             }
         }, 100);
 
-        // 3. Trades Ignored (Randomly ticks up to show passive operation)
         let ignoredCount = 0;
         setInterval(() => {
-            if (Math.random() > 0.6) { // 40% chance to ignore a trade every second
+            if (Math.random() > 0.6) { 
                 ignoredCount += Math.floor(Math.random() * 3) + 1;
                 ignoredEl.innerText = ignoredCount.toLocaleString();
             }
